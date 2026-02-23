@@ -3,6 +3,7 @@ package my.learn.model.message;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import my.learn.constatnts.Constants;
+import my.learn.constatnts.MessageData;
 import my.learn.model.Operation;
 
 import java.util.List;
@@ -21,14 +22,14 @@ public class OperationMessage implements Message {
     public String getMessage() {
         String file;
         if (filePath == null) {
-            file = "Не выбран";
+            file = MessageData.FILE_NOT_INSTALLED;
         } else {
             file = filePath;
         }
 
         StringBuilder sb = new StringBuilder();
         sb.append(delimiter).append("\n");
-        sb.append("Текущий файл: ").append(file).append("\n");
+        sb.append(MessageData.CURRENT_FILE).append(file).append("\n");
         sb.append(delimiter).append("\n");
         for (Operation operation : operations) {
             sb.append(operation).append("\n");

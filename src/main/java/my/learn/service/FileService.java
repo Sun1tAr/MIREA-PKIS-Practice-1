@@ -1,6 +1,7 @@
 package my.learn.service;
 
 import lombok.Getter;
+import my.learn.constatnts.MessageData;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -45,14 +46,14 @@ public class FileService {
     public int getCountOfWords() throws Exception {
         String fileText = getFileText();
         char[] charArray = fileText.toCharArray();
-        int count = 0;
-        for (int i = 0; i < charArray.length; i++) {
-            if (charArray[i] == ' ') {
+        int count = 1;
+        for (char c : charArray) {
+            if (c == ' ') {
                 count++;
             }
         }
-        if  (count == 0 && charArray.length != 0) {
-            return 1;
+        if  (count == 1 && charArray.length == 0) {
+            return 0;
         }
         return count;
     }
@@ -60,13 +61,17 @@ public class FileService {
     public int findCountSubstringInFile(String userInput) throws Exception {
         String fileText = getFileText();
         String[] split = fileText.split(userInput);
-        return split.length > 1? split.length - 1 : split.length;
+        int count = split.length - 1;
+        if (split.length != 0 && split[0].isEmpty()) {
+            count++;
+        }
+        return count;
     }
 
 
     public void invalidateFile() throws Exception {
         filePath = null;
-        throw new Exception("Файл не найден, повторите ввод");
+        throw new Exception(MessageData.FILE_NOT_FOUND);
     }
 
 }

@@ -4,6 +4,7 @@ package my.learn.service;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import my.learn.constatnts.Constants;
+import my.learn.constatnts.MessageData;
 import my.learn.model.Operation;
 import my.learn.model.message.DescriptionMessage;
 import my.learn.model.message.ResultMessage;
@@ -23,7 +24,7 @@ public class OperationsService {
         try {
             i = Integer.parseInt(userInput);
         } catch (NumberFormatException e) {
-            throw new Exception("Некорректные данные - введите число");
+            throw new Exception(MessageData.INCORRECT_DATA);
         }
 
         for (Operation operation : Constants.operations) {
@@ -31,7 +32,7 @@ public class OperationsService {
                 return operation;
             }
         }
-        throw new Exception("Такая операция не поддерживается, повторите ввод");
+        throw new Exception(MessageData.OPERATION_NOT_SUPPLY);
     }
 
 
@@ -54,10 +55,10 @@ public class OperationsService {
         switch (operation) {
             case INSERT_PATH -> {
                 fileService.setFilePath(userInput);
-                data = "Путь к файлу успешно задан";
+                data = MessageData.PATH_SUCCESSFUL_INSTALLED;
             }
             case FIND_SUBSTRING_COUNT -> {
-                data = "Количество вхождений подстроки в файл: " +
+                data = MessageData.COUNT_OF_SUBSTRING +
                         fileService.findCountSubstringInFile(userInput);
             }
         }
@@ -68,10 +69,10 @@ public class OperationsService {
         String data = null;
         switch (operation) {
             case INSERT_PATH -> {
-                data = "Введите путь к файлу в формате: C:\\Users\\user\\Desktop\\test.txt";
+                data = MessageData.INPUT_PATH_BY_FORMAT;
             }
             case FIND_SUBSTRING_COUNT -> {
-                data = "Введите искомую подстроку или регулярное выражение";
+                data = MessageData.INPUT_FIND_SUBSTRING;
             }
         }
         return new DescriptionMessage(data, DELIMITER);
@@ -83,13 +84,13 @@ public class OperationsService {
         switch (operation) {
             case CLOSE_PROGRAM -> {
                 ready = false;
-                data = "Программа успешно завершена";
+                data = MessageData.APP_SUCCESSFUL_CLOSED;
             }
             case WRITE_TO_CONSOLE -> {
                 data = fileService.getFileText();
             }
             case FIND_COUNT_OF_WORDS -> {
-                data = "Количество слов в файле: " + fileService.getCountOfWords();
+                data = MessageData.COUNT_OF_WORDS + fileService.getCountOfWords();
             }
         }
         return new ResultMessage(data);
