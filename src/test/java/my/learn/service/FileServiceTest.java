@@ -257,18 +257,7 @@ class FileServiceTest {
         assertEquals(0, count);
     }
 
-    @Test
-    @DisplayName("Поиск подстроки: пустая строка в качестве подстроки")
-    void findCountSubstringInFile_EmptyString_ReturnsCorrectCount() throws Exception {
-        // Given
-        fileService.setFilePath(TEST_FILE_PATH);
-        // Пустая строка есть между каждым символом, но метод split("") ведёт себя специфично
-        // Для простоты тестируем конкретный случай
-
-        // When & Then
-        // Можно ожидать, что count будет равен длине строки + 1 (специфика split)
-        // Но это зависит от реализации - можно либо документировать поведение, либо не тестировать
-    }
+    
 
 
     @Test
